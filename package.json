@@ -1,0 +1,23 @@
+{
+  "name": "create-ent-stack",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "create-ent-stack": "./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "fs-extra": "^11.2.0"
+  },
+  "files": [
+    "templates"
+  ],
+  "scripts": {
+    "prepack": "node src/prepack.js"
+  }
+}
