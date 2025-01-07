@@ -24,7 +24,7 @@ async function main() {
   // Prompt for a valid project name
   let projectName
   while (true) {
-    projectName = await rl.question(chalk.cyan("Enter your project name: "))
+    projectName = await rl.question(chalk.hex("#B8B9FF")("Enter your project name: "))
     if (packageNameRegex.test(projectName)) {
       break // Valid input — break out of the loop
     }
@@ -124,11 +124,11 @@ async function main() {
   }
 
   // Output results
-  console.log(chalk.cyan(`\nProject scaffolded at: ${resolvedPath}\n`))
+  console.log(chalk.hex("#B8B9FF")(`\nProject scaffolded at: ${resolvedPath}\n`))
 
   // Remind the user to create .env files (in cyan as well)
   console.log(
-      chalk.bgCyan(
+      chalk.hex("#B8B9FF")(
           `Now finish setting up your project by following the setup guide https://ironexdev.github.io/ent-stack-documentation/ent-stack/setup`
       )
   )
