@@ -1,21 +1,21 @@
 {
   "name": "create-ent-stack",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.7",
+  "description": "The ENT Stack is a robust, full-stack monorepo starter kit that integrates Express 5, Next.js 15, and TRPC, offering a streamlined solution for web app development.",
   "main": "index.js",
   "type": "module",
   "bin": {
     "create-ent-stack": "./src/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["express", "nextjs", "trpc", "typescript", "starter-kit", "monorepo", "pnpm"],
+  "author": "Ironex",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.4.1",
     "fs-extra": "^11.2.0"
   },
   "files": [
-    "templates"
+    "source"
   ],
   "scripts": {
     "prepack": "node src/prepack.js"

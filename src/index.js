@@ -52,6 +52,7 @@ async function main() {
 
   // Modify the scaffolded package.json
   const packageJsonPath = path.join(resolvedPath, "package.json")
+
   if (fs.existsSync(packageJsonPath)) {
     try {
       const packageJsonData = fs.readFileSync(packageJsonPath, "utf-8")
@@ -60,6 +61,9 @@ async function main() {
       // Update name and version
       packageJson.name = projectName
       packageJson.version = "0.0.1"
+      delete packageJson.author
+      delete packageJson.license
+      delete packageJson.description
 
       fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
     } catch (error) {
@@ -112,6 +116,7 @@ async function main() {
   // Create a new README.md file
   const readmePath = path.join(resolvedPath, "README.md")
   const readmeContent = `# ${projectName}`
+
   try {
     fs.writeFileSync(readmePath, readmeContent)
   } catch (error) {
@@ -119,13 +124,12 @@ async function main() {
   }
 
   // Output results
-  console.log(chalk.green(`Project scaffolded at: ${resolvedPath}`))
+  console.log(chalk.cyan(`\nProject scaffolded at: ${resolvedPath}\n`))
 
   // Remind the user to create .env files (in cyan as well)
   console.log(
-      chalk.cyan(
-          "Create and configure the following environment files based on the documentation: " +
-          "apps/backend/.env and apps/frontend/.env"
+      chalk.bgCyan(
+          `Now finish setting up your project by following the setup guide https://ironexdev.github.io/ent-stack-documentation/ent-stack/setup`
       )
   )
 }
