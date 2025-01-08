@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
+import chalk from "chalk";
 
 // Resolve __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -40,6 +41,13 @@ if (fs.existsSync(gitDir)) {
   console.warn(`.git directory not found in ${sourceDir}`);
 }
 
+// Remove LICENSE file
+const licensePath = path.join(sourceDir, "LICENSE")
+try{
+  fs.unlinkSync(licensePath)
+} catch (error) {
+  console.log(chalk.red("Error deleting LICENSE file:"), error)
+}
 
 // Helper function to ensure a directory exists
 function ensureDirSync(dir) {

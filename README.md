@@ -1,9 +1,11 @@
-# ENT Stack
+# Create ENT Stack
 
-The ENT Stack is a robust, full-stack monorepo starter kit that integrates **Express 5**, **Next.js 15**, and **TRPC**, offering a streamlined solution for web app development.
+Script that creates package for ENT Stack.
 
-It allows you to build and share code between frontend and backend in a single project while maintaining the flexibility to host them independently.
+## Usage
 
-## How to Use
+Use this to test the output code.
 
-Follow instructions in the [GitHub repository](https://github.com/ironexdev/ent-stack) ⭐
+```bash
+node src/prepack.js
+```

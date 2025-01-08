@@ -126,7 +126,7 @@ async function main() {
   // Output results
   console.log(chalk.hex("#B8B9FF")(`\nProject scaffolded at: ${resolvedPath}\n`))
 
-  // Remind the user to create .env files (in cyan as well)
+  // Remind the user to create .env files
   console.log(
       chalk.hex("#B8B9FF")(
           `Now finish setting up your project by following the setup guide https://ironexdev.github.io/ent-stack-documentation/ent-stack/setup`
