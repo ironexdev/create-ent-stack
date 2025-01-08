@@ -6,6 +6,7 @@ import { fileURLToPath } from "url"
 import readline from "readline/promises"
 import { stdin as input, stdout as output } from "process"
 import chalk from "chalk"
+import { randomBytes } from "crypto"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -68,6 +69,37 @@ async function main() {
       fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
     } catch (error) {
       console.log(chalk.red("Error updating package.json:"), error)
+    }
+  }
+
+  // Modify the scaffolded .env files
+  const backendEnvPath = path.join(resolvedPath, "apps/backend/.env")
+  const frontendEnvPath = path.join(resolvedPath, "apps/frontend/.env")
+
+  // Generate JWT secret
+  const jwtSecret = generateJWTSecret(32)
+
+  // Set backend .env values
+  if (fs.existsSync(backendEnvPath)) {
+    try {
+        let backendEnvContent = fs.readFileSync(backendEnvPath, "utf-8")
+        backendEnvContent = backendEnvContent.replace(/SITE_NAME=.*/, `SITE_NAME=${projectName}`)
+        backendEnvContent = backendEnvContent.replace(/JWT_SECRET=.*/, `JWT_SECRET=${jwtSecret}`)
+        fs.writeFileSync(backendEnvPath, backendEnvContent)
+    } catch (error) {
+        console.log(chalk.red("Error setting SITE_NAME in backend .env:"), error)
+    } 
+  }
+
+  // Set frontend .env values
+  if (fs.existsSync(frontendEnvPath)) {
+    try {
+      let frontendEnvContent = fs.readFileSync(frontendEnvPath, "utf-8")
+      frontendEnvContent = frontendEnvContent.replace(/NEXT_PUBLIC_SITE_NAME=.*/, `NEXT_PUBLIC_SITE_NAME=${projectName}`)
+      frontendEnvContent = frontendEnvContent.replace(/JWT_SECRET=.*/, `JWT_SECRET=${jwtSecret}`)
+      fs.writeFileSync(frontendEnvPath, frontendEnvContent)
+    } catch (error) {
+      console.log(chalk.red("Error setting SITE_NAME in frontend .env:"), error)
     }
   }
 
@@ -154,3 +186,7 @@ function copyDirectoryContentsSync(source, destination) {
     }
   }
 }
+
+function generateJWTSecret (length = 32) {
+  return randomBytes(length).toString("base64");
+};

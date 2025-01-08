@@ -49,6 +49,17 @@ try{
   console.log(chalk.red("Error deleting LICENSE file:"), error)
 }
 
+// Copy backend.env to source/apps/backend/.env and frontend.env to source/apps/frontend/.env
+const backendEnvPath = path.join(sourceDir, "apps/backend/.env")
+const frontendEnvPath = path.join(sourceDir, "apps/frontend/.env")
+
+try {
+    fs.copyFileSync(path.join(__dirname, "backend.env"), backendEnvPath)
+    fs.copyFileSync(path.join(__dirname, "frontend.env"), frontendEnvPath)
+} catch (error) {
+    console.log(chalk.red("Error copying .env files:"), error)
+}
+
 // Helper function to ensure a directory exists
 function ensureDirSync(dir) {
   if (!fs.existsSync(dir)) {
