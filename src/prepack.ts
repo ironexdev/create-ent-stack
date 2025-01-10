@@ -6,7 +6,7 @@ import { fileURLToPath } from "url"
 import { execSync } from "child_process"
 import https from "https"
 import chalk from "chalk"
-import { ensureDirSync } from "./utils"
+import { ensureDirSync } from "./utils.js"
 import { create } from "tar"
 
 // Resolve __dirname in ESM
@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename)
 // Define the repository details
 const GIT_REPO_URL = "https://github.com/ironexdev/ent-stack.git"
 const GIT_REPO_API = "https://api.github.com/repos/ironexdev/ent-stack"
-const sourceDir = path.resolve(__dirname, "../source")
+const sourceDir = path.resolve(__dirname, "source")
 
 // Read the version from ent-stack-version.txt
 const versionFilePath = path.join(__dirname, "ent-stack-version.txt")
@@ -99,7 +99,7 @@ async function main(): Promise<void> {
   // Download the specific version as a ZIP file
   try {
     console.log(`Downloading version ${version} from ${GIT_REPO_URL} as ZIP...`)
-    const zipPath = path.join(__dirname, "../source.zip")
+    const zipPath = path.join(__dirname, "source.zip")
     const downloadUrl = `https://github.com/ironexdev/ent-stack/archive/refs/tags/${version}.zip`
 
     // Download the ZIP file
@@ -164,7 +164,7 @@ async function main(): Promise<void> {
   create(
     {
       gzip: true,
-      file: path.join(__dirname, "../source.tar.gz"),
+      file: path.join(__dirname, "source.tar.gz"),
       cwd: sourceDir,
     },
     ["."],

@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "allowJs": true,
     "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
-    "noEmit": true,
+    "moduleResolution": "node",
+    "noEmit": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
@@ -17,5 +17,6 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "es2017"
-  }
+  },
+  "include": ["src/**/*"]
 }

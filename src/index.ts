@@ -7,7 +7,7 @@ import readline from "readline/promises"
 import { stdin as input, stdout as output } from "process"
 import chalk from "chalk"
 import { extract } from "tar"
-import { ensureDirSync, generateJWTSecret } from "./utils"
+import { ensureDirSync, generateJWTSecret } from "./utils.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -46,7 +46,7 @@ async function main() {
   const resolvedPath = path.resolve(projectName)
 
   // Define source file path
-  const sourceFile = path.join(__dirname, "../source.tar.gz")
+  const sourceFile = path.join(__dirname, "source.tar.gz")
 
   // Ensure project directory exists
   ensureDirSync(resolvedPath)
