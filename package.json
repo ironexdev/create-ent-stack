@@ -27,7 +27,6 @@
     "build": "tsc && cp src/ent-stack-version.txt dist/ && cp src/backend.env dist/ && cp src/frontend.env dist/",
     "create": "node dist/index.js",
     "prepack": "node dist/prepack.js",
-    "publish": "pnpm run build && npm publish",
     "set-version": "node dist/set-version.js"
   },
   "dependencies": {
