@@ -38,16 +38,18 @@ The section/s below are for maintainers.
 
 ## How To Publish
 
-1/ Run `pnpm run set-version` to version of the ENT Stack to be used
+1/ Run `pnpm run set-version <version>` to set version of the ENT Stack to be used
 - Make sure to check the correct version was set to src/ent-stack-version.txt and to README.md
 
-2/ Bump package version in `package.json`
+2/ Run `pnpm run build` to build the package
 
-3/ Run `pnpm run create` to create new project
+3/ Bump package version in `package.json`
 
-4/ Test the new project
+4/ Run `pnpm run create` to create new project
+
+5/ Test the new project
 - Navigate to the newly created project
 - Run `pnpm fire` to setup the project
 - Manually test the project (automatic tests are not yet implemented)
 
-5/ Run `pnpm publish` to publish new version of the package
+6/ Run `npm publish` to publish new version of the package
