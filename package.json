@@ -7,6 +7,10 @@
   "bin": {
     "create-ent-stack": "./dist/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironexdev/create-ent-stack.git"
+  },
   "keywords": [
     "express",
     "nextjs",
