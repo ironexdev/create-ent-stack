@@ -8,7 +8,7 @@
 
 This <a href="https://www.npmjs.com/package/create-ent-stack" target="_blank">NPM package</a> downloads <a href="https://github.com/ironexdev/ent-stack" target="_blank">ENT Stack</a> repository and uses it to create/scaffold a new project.
 
-🔀 Current version of this package uses <a href="https://github.com/ironexdev/ent-stack" target="_blank">ENT Stack</a> tagged with **0.0.1**.
+🔀 Current version of this package uses <a href="https://github.com/ironexdev/ent-stack" target="_blank">ENT Stack</a> tagged with **0.0.3**.
 
 ## How To Use
 
@@ -47,9 +47,9 @@ The section/s below are for maintainers.
 1/ Run `pnpm run set-version <version>` to set version of the ENT Stack to be used
 - Make sure to check the correct version was set to src/ent-stack-version.txt and to README.md
 
-2/ Run `pnpm run build` to build the package
+2/ Bump package version in `package.json`
 
-3/ Bump package version in `package.json`
+3/ Run `pnpm run build` to build the package
 
 4/ Run `pnpm run create` to create new project
 

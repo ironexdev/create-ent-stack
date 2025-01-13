@@ -169,9 +169,21 @@ async function main() {
     }
   }
 
+  const capitalizedProjectName =
+    projectName.charAt(0).toUpperCase() + projectName.slice(1)
+
   // Create a new README.md file
   const readmePath = path.join(resolvedPath, "README.md")
-  const readmeContent = `# ${projectName}`
+  const readmeContent = `# ${capitalizedProjectName}
+
+## Now Setup Your Project 
+
+🔥 https://github.com/ironexdev/ent-stack?tab=readme-ov-file#2--setup
+
+## And Then Configure Mailing and Run Tests
+
+🧪 https://github.com/ironexdev/ent-stack?tab=readme-ov-file#3--configure-mailing-and-run-tests
+`
 
   try {
     fs.writeFileSync(readmePath, readmeContent)
