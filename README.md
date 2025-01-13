@@ -8,7 +8,7 @@
 
 This <a href="https://www.npmjs.com/package/create-ent-stack" target="_blank">NPM package</a> downloads <a href="https://github.com/ironexdev/ent-stack" target="_blank">ENT Stack</a> repository and uses it to create/scaffold a new project.
 
-🔀 Current version of this package uses <a href="https://github.com/ironexdev/ent-stack" target="_blank">ENT Stack</a> tagged with **0.0.4**.
+🔀 Current version of this package uses <a href="https://github.com/ironexdev/ent-stack" target="_blank">ENT Stack</a> tagged with **0.0.5**.
 
 ## How To Use
 
