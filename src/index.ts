@@ -6,7 +6,6 @@ import { fileURLToPath } from "url"
 import readline from "readline/promises"
 import { stdin as input, stdout as output } from "process"
 import chalk from "chalk"
-import { extract } from "tar"
 import { ensureDirSync, generateJWTSecret } from "./utils.js"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -42,29 +41,22 @@ async function main() {
   // Close readline
   await rl.close()
 
-  // Create a directory named after the project
+  // Resolve the path to the new project directory
   const resolvedPath = path.resolve(projectName)
-
-  // Define source file path
-  const sourceFile = path.join(__dirname, "source.tar.gz")
-
-  // Ensure project directory exists
   ensureDirSync(resolvedPath)
 
-  // Extract the archive directly into the project directory
+  // Copy "source" directory
+  const sourceDir = path.join(__dirname, "source")
   try {
-    extract({
-      file: sourceFile,
-      cwd: resolvedPath, // Directly extract to the project directory
-      sync: true,
-    })
-
-    // Remove the source.tar.gz file after successful extraction
-    fs.unlinkSync(sourceFile)
-    console.log(chalk.green("Source archive removed after extraction."))
+    copyRecursiveSync(sourceDir, resolvedPath)
+    console.log(chalk.green(`Source directory copied to: ${resolvedPath}`))
   } catch (error) {
-    console.error("Extraction failed:", error)
+    console.error(chalk.red("Error copying source directory:"), error)
+    process.exit(1)
   }
+
+  // Rename all keep.gitignore files to .gitignore
+  renameKeepGitignoreFiles(resolvedPath)
 
   // Modify the scaffolded package.json
   const packageJsonPath = path.join(resolvedPath, "package.json")
@@ -176,7 +168,7 @@ async function main() {
     process.exit(1)
   }
 
-  const version: string = fs.readFileSync(versionFilePath, "utf8").trim()
+  const version = fs.readFileSync(versionFilePath, "utf8").trim()
   if (!version) {
     console.error(chalk.red("Error: ent-stack-version.txt is empty."))
     process.exit(1)
@@ -188,15 +180,24 @@ async function main() {
   
 Based on version ${version} of the [ENT Stack](https://github.com/ironexdev/ent-stack). 
 
-## Now Setup Your Project 
+## 🔥 Now Setup Your Project
 
-🔥 https://github.com/ironexdev/ent-stack?tab=readme-ov-file#2--setup
+\`\`\`bash
+pnpm fire    
+\`\`\`
+- Installs dependencies
+- Starts the local database in a Docker container
+- Creates the database and tables
+- Runs dev environments for both the backend and frontend
 
-## And Then Configure Mailing and Run Tests
+## 🧪 And Then Configure Mailing and Run Tests
 
-🧪 https://github.com/ironexdev/ent-stack?tab=readme-ov-file#3--configure-mailing-and-run-tests
+https://github.com/ironexdev/ent-stack?tab=readme-ov-file#3--configure-mailing-and-run-tests
+
+## Check the troubleshooting section if you encounter any issues
+
+https://github.com/ironexdev/ent-stack?tab=readme-ov-file#troubleshooting
 `
-
   try {
     fs.writeFileSync(readmePath, readmeContent)
   } catch (error) {
@@ -214,4 +215,49 @@ Based on version ${version} of the [ENT Stack](https://github.com/ironexdev/ent-
       `Now you can run "pnpm fire" to setup the project, and make sure to also read the Environment Variables section https://ironexdev.github.io/ent-stack-documentation/ent-stack/setup`,
     ),
   )
+}
+
+// Recursively copies all files/folders from source to destination
+function copyRecursiveSync(src: string, dest: string) {
+  // If file/folder doesn't exist, just return
+  if (!fs.existsSync(src)) return
+
+  const stats = fs.statSync(src)
+  if (stats.isDirectory()) {
+    // Create dest dir if it doesn't exist
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest)
+    }
+    // Recurse through child items
+    fs.readdirSync(src).forEach((childItemName) => {
+      copyRecursiveSync(
+        path.join(src, childItemName),
+        path.join(dest, childItemName),
+      )
+    })
+  } else {
+    // Copy file
+    fs.copyFileSync(src, dest)
+  }
+}
+
+// Recursively find and rename all keep.gitignore files to .gitignore
+
+function renameKeepGitignoreFiles(dirPath: string) {
+  if (!fs.existsSync(dirPath)) return
+  const files = fs.readdirSync(dirPath)
+
+  for (const file of files) {
+    const filePath = path.join(dirPath, file)
+    const stat = fs.statSync(filePath)
+
+    if (stat.isDirectory()) {
+      // Recursively handle nested directories
+      renameKeepGitignoreFiles(filePath)
+    } else if (file === "keep.gitignore") {
+      // Rename the file to .gitignore
+      const newFilePath = path.join(dirPath, ".gitignore")
+      fs.renameSync(filePath, newFilePath)
+    }
+  }
 }
