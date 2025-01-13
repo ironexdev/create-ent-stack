@@ -169,12 +169,24 @@ async function main() {
     }
   }
 
-  const capitalizedProjectName =
-    projectName.charAt(0).toUpperCase() + projectName.slice(1)
+  // Read the version from ent-stack-version.txt
+  const versionFilePath = path.join(__dirname, "ent-stack-version.txt")
+  if (!fs.existsSync(versionFilePath)) {
+    console.error(chalk.red("Error: ent-stack-version.txt not found."))
+    process.exit(1)
+  }
+
+  const version: string = fs.readFileSync(versionFilePath, "utf8").trim()
+  if (!version) {
+    console.error(chalk.red("Error: ent-stack-version.txt is empty."))
+    process.exit(1)
+  }
 
   // Create a new README.md file
   const readmePath = path.join(resolvedPath, "README.md")
-  const readmeContent = `# ${capitalizedProjectName}
+  const readmeContent = `# ${projectName.toUpperCase()}
+  
+Based on version ${version} of the [ENT Stack](https://github.com/ironexdev/ent-stack). 
 
 ## Now Setup Your Project 
 

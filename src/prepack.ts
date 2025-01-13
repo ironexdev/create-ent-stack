@@ -24,6 +24,7 @@ if (!fs.existsSync(versionFilePath)) {
   console.error(chalk.red("Error: ent-stack-version.txt not found."))
   process.exit(1)
 }
+
 const version: string = fs.readFileSync(versionFilePath, "utf8").trim()
 if (!version) {
   console.error(chalk.red("Error: ent-stack-version.txt is empty."))
